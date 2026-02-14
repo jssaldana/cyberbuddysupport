@@ -760,6 +760,7 @@
     .trust-bar-inner { gap: 1.5rem; }
   }
 </style>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -1056,18 +1057,18 @@
         <div class="contact-form-wrap">
           <h2>Send Me a Message</h2>
 
-          <div id="contact-form">
+          <form id="contact-form" action="https://formspree.io/f/mzdarrnv" method="POST">
             <div class="form-group">
               <label for="name">Your Name</label>
-              <input type="text" id="name" placeholder="Your first name is fine">
+              <input type="text" id="name" name="name" placeholder="Your first name is fine" required>
             </div>
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" id="email" placeholder="yourname@email.com">
+              <input type="email" id="email" name="email" placeholder="yourname@email.com" required>
             </div>
             <div class="form-group">
               <label for="topic">What's this about?</label>
-              <select id="topic">
+              <select id="topic" name="topic" required>
                 <option value="">— Choose one —</option>
                 <option>I got a suspicious email or text</option>
                 <option>I think I was scammed</option>
@@ -1079,12 +1080,13 @@
             </div>
             <div class="form-group">
               <label for="message">Tell me what's going on</label>
-              <textarea id="message" placeholder="Don't worry about technical language — just describe what happened or what you're worried about. There are no dumb questions here."></textarea>
+              <textarea id="message" name="message" placeholder="Don't worry about technical language — just describe what happened or what you're worried about. There are no dumb questions here." required></textarea>
             </div>
-            <button class="btn-primary" onclick="submitForm()" style="width: 100%; font-size: 1.05rem; padding: 1rem;">Send My Message →</button>
-          </div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAACcl5VzBeng35jIJ" style="margin-bottom: 1.25rem;"></div>
+            <button type="submit" class="btn-primary" style="width: 100%; font-size: 1.05rem; padding: 1rem;">Send My Message →</button>
+          </form>
 
-          <div class="form-success" id="form-success">
+          <div class="form-success" id="form-success" style="display:none;">
             <div style="font-size: 2.5rem; margin-bottom: 0.75rem;">✅</div>
             <h3>Message Sent!</h3>
             <p>Thank you for reaching out. I will respond personally, usually within 24 hours. In the meantime, feel free to browse the free security tips.</p>
@@ -1137,20 +1139,6 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function submitForm() {
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const topic = document.getElementById('topic').value;
-    const message = document.getElementById('message').value.trim();
-
-    if (!name || !email || !topic || !message) {
-      alert('Please fill in all fields before sending.');
-      return;
-    }
-
-    document.getElementById('contact-form').style.display = 'none';
-    document.getElementById('form-success').style.display = 'block';
-  }
 </script>
 
 </body>
